@@ -43,10 +43,10 @@ const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
 let configFolder = app.getPath('appData')
 // If we're running tests, we want a config folder independent of the normal
 // user configuration
-if (process.env.CI === 'e2e') {
+if (process.env.CI === 'e2e' || process.env.CI === 'ci') {
   const temp_dir = dirSync({ unsafeCleanup: true })
   logDebug(
-    `CI is set to "e2e", storing Heroic config files in ${temp_dir.name}`
+    `CI is set to "${process.env.CI}", storing Heroic config files in ${temp_dir.name}`
   )
   configFolder = temp_dir.name
   mkdirSync(join(configFolder, 'heroic'))

@@ -197,7 +197,7 @@
     "find-deadcode": "ts-prune --error",
     "test": "jest",
     "test-watch": "jest --watch --maxWorkers=25%",
-    "test:ci": "jest --runInBand --silent",
+    "test:ci": "cross-env CI=ci jest --runInBand --silent",
     "test:e2e": "vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
     "release:linux": "vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
     "release:mac": "vite build && electron-builder -p always --mac --x64 --arm64",

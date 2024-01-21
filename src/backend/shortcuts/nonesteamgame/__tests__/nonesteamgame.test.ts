@@ -5,6 +5,7 @@ import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { GlobalConfig } from 'backend/config'
+import { createNecessaryFolders } from 'backend/constants'
 import { logInfo, logError, logWarning } from '../../../logger/logger'
 
 jest.mock('backend/logger/logfile')
@@ -26,6 +27,11 @@ function copyTestFile(file: string, alternativeUserPath = '') {
 }
 
 describe('NonSteamGame', () => {
+  beforeAll(() => {
+    // Ensure the GameConfig directory exists prior to addNonSteamGame() reading it.
+    createNecessaryFolders()
+  })
+
   beforeEach(() => {
     tmpDir = dirSync({ unsafeCleanup: true })
     GlobalConfig['setConfigValue']('defaultSteamPath', tmpDir.name + "'")
