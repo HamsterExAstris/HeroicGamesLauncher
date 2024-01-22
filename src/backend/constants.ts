@@ -45,8 +45,8 @@ let configFolder = app.getPath('appData')
 // user configuration
 if (process.env.CI === 'e2e' || process.env.CI === 'ci') {
   const temp_dir = dirSync({ unsafeCleanup: true })
-  if (process.env.CI === 'e2e') {
-    // Some Logger functions depend on constants, causing the mocks to fail due to recursion.
+  // In CI tests, the mock logDebug might not be accessible due to circular dependencies.
+  if (logDebug) {
     logDebug(
       `CI is set to "e2e", storing Heroic config files in ${temp_dir.name}`
     )
